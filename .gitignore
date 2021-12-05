@@ -1,0 +1,10 @@
+# Cache
+**/.parcel-cache
+**/.parcel-cache/*
+
+# Dir
+**/dist
+**/node_modules
+
+#
+**/package-lock.json
