@@ -1,10 +1,10 @@
-# Cache
-**/.parcel-cache
-**/.parcel-cache/*
-
 # Dir
 **/dist
 **/node_modules
+**/.gitignore
+**/__pycache__
+**/.chalice/deployments
+**/.chalice/venv
 
 #
 **/package-lock.json
