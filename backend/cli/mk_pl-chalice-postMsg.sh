@@ -9,7 +9,10 @@ export AWS_ACCOUNT_ID=`aws sts get-caller-identity | jq '.Account' | sed 's/"//g
 #----------------------------------------------------------------------
 # +++ Set configure
 #----------------------------------------------------------------------
-app_name='post-msg'
+sysname='pl'
+type='chalice'
+use='postMsg'
+app_name=${sysname}-${type}-${use}
 config=${chome}/${app_name}/.chalice/config.json
 stage='dev'
 profile='dev'
