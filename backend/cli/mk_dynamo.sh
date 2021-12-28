@@ -6,7 +6,7 @@
 #----------------------------------------------------------------------
 sysname='pl'
 type='dynamo'
-uses='seaquence' # 'site' or 'seaquence'
+uses='site' # 'site' or 'seaquence'
 env='dev'
 #
 table_name=${sysname}-${type}-${uses}-${env}

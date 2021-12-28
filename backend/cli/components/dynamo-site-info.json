@@ -1,8 +1,8 @@
 {
   "AttributeDefinitions": [
       {
-          "AttributeName": "name",
-          "AttributeType": "S"
+          "AttributeName": "id",
+          "AttributeType": "N"
       },
       {
           "AttributeName": "date",
@@ -12,7 +12,7 @@
   "TableName": "pl-dynamo-site-dev",
   "KeySchema": [
       {
-          "AttributeName": "name",
+          "AttributeName": "id",
           "KeyType": "HASH"
       },
       {
