@@ -1,0 +1,31 @@
+{
+  "Items": [
+    {
+      "name": {
+        "S": "0"
+      },
+      "date": {
+        "S": "2021-xx-xxTxx:xx:xx+0900"
+      },
+      "labels": {
+        "L": [
+          {
+            "S": "AWS"
+          },
+          {
+            "S": "Python"
+          }
+        ]
+      },
+      "comments": {
+        "S": "example"
+      },
+      "site": {
+        "S": "https://localhost:3000"
+      }
+    }
+  ],
+  "Count": 1,
+  "ScannedCount": 1,
+  "ConsumedCapacity": null
+}
