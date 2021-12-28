@@ -2,10 +2,23 @@
   "Items": [
     {
       "name": {
-        "S": "id"
+        "S": "0"
       },
-      "seq": {
-        "N": "0"
+      "date": {
+        "S": "2021-xx-xxTxx:xx:xx+0900"
+      },
+      "labels": {
+        "L": [
+          {
+            "S": "AWS"
+          },
+          {
+            "S": "Python"
+          }
+        ]
+      },
+      "comments": {
+        "S": "example"
       }
     }
   ],

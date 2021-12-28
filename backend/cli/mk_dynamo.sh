@@ -6,10 +6,10 @@
 #----------------------------------------------------------------------
 sysname='pl'
 type='dynamo'
-uses='site' # 'site' or 'seaquence'
+uses='seaquence' # 'site' or 'seaquence'
 env='dev'
 #
-table_name=${sysname}-${type}-${use}-${env}
+table_name=${sysname}-${type}-${uses}-${env}
 table_file=./components/${type}-${uses}-info.json
 table_body=./components/${type}-${uses}-body.json
 
