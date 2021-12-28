@@ -1,0 +1,15 @@
+{
+  "Items": [
+    {
+      "name": {
+        "S": "id"
+      },
+      "seq": {
+        "N": "0"
+      }
+    }
+  ],
+  "Count": 1,
+  "ScannedCount": 1,
+  "ConsumedCapacity": null
+}
