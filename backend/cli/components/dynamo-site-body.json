@@ -19,6 +19,9 @@
       },
       "comments": {
         "S": "example"
+      },
+      "site": {
+        "S": "https://localhost:3000"
       }
     }
   ],
