@@ -5,15 +5,23 @@ Created from 2021.12.27
 """
 
 from chalice import Chalice
-import os
+import json
 import logging
 from logging import getLogger, StreamHandler, Formatter
+import os
+import random
 from slack_sdk import WebClient
+#
+from module.dynamo import dynamo_api
 
-app = Chalice(app_name='post-msg')
+"""config"""
+app = Chalice(app_name='pl-chalice-postMsg')
 client = WebClient(token=os.environ['SLACK_TOKEN'])
 channel = os.environ['SLACK_CHANNEL']
-#
+site_table = dynamo_api(os.environ['API_TABLE'])
+seaquence_table = dynamo_api(os.environ['SEAQUENCE_TABLE'])
+
+"""Logger"""
 logger = getLogger('Logs')
 logger.setLevel(logging.DEBUG)
 #
@@ -23,7 +31,10 @@ stream_handler.setLevel(logging.DEBUG)
 stream_handler.setFormatter(handler_format)
 logger.addHandler(stream_handler)
 
+"""Main"""
 #@app.schedule('cron 20 17 ? * SUN-THU *')
+#def main():
+
 @app.lambda_function()
 def main(event,content):
   try:
@@ -35,8 +46,20 @@ def main(event,content):
       text = submit
     )
     logger.debug(result)
-    logger.debug('Normal END')
-  
+
+    return {
+      'statusCode': 200,
+      'body': json.dumps('Good job :) ')
+    }
+
   except Exception as e:
     logger.error('Error posting message: {}'.format(e))
 
+"""SubTools"""
+def _get_site(index):
+  return site_table.get_item(Key={"id":index})
+
+def _random():
+  response = seaquence_table.get_item(Key={"name": "id"})
+  max_num = response["Item"]["seq"]
+  return  random.randint(0,max_num)

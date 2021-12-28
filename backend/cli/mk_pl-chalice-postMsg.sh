@@ -16,7 +16,7 @@ app_name=${sysname}-${type}-${use}
 config=${chome}/${app_name}/.chalice/config.json
 stage='dev'
 profile='dev'
-status='update' # 'create' or 'update'
+status='create' # 'create' or 'update'
 
 cat << EOF > ${config}
 {
