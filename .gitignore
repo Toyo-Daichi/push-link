@@ -3,6 +3,7 @@
 **/node_modules
 **/.gitignore
 **/__pycache__
+**/.chalice/congig.json
 **/.chalice/deployments
 **/.chalice/deployed
 **/.chalice/venv
