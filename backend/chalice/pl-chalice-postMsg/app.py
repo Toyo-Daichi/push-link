@@ -12,13 +12,13 @@ import os
 import random
 from slack_sdk import WebClient
 #
-from module.dynamo import dynamo_api
+from chalicelib.dynamo import dynamo_api
 
 """config"""
 app = Chalice(app_name='pl-chalice-postMsg')
 client = WebClient(token=os.environ['SLACK_TOKEN'])
 channel = os.environ['SLACK_CHANNEL']
-site_table = dynamo_api(os.environ['API_TABLE'])
+site_table = dynamo_api(os.environ['SITE_TABLE'])
 seaquence_table = dynamo_api(os.environ['SEAQUENCE_TABLE'])
 
 """Logger"""
@@ -26,24 +26,31 @@ logger = getLogger('Logs')
 logger.setLevel(logging.DEBUG)
 #
 stream_handler = StreamHandler()
-handler_format = Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler_format = Formatter('%(asctime)s - %(lineno)d - %(name)s - %(levelname)s - %(message)s')
 stream_handler.setLevel(logging.DEBUG)
 stream_handler.setFormatter(handler_format)
 logger.addHandler(stream_handler)
 
 """Main"""
-#@app.schedule('cron 20 17 ? * SUN-THU *')
-#def main():
+#dev
+#@app.lambda_function()
+#def main(event,content):
 
-@app.lambda_function()
-def main(event,content):
+@app.schedule('cron(0 9 ? * MON-FRI *)')
+def main():
+  
+  index = _random()
+  response = _get_site(index)
+  site = response['site']
+  date = response['date']
+  labels = response['labels']
+  comments = response['comments']
+  msg = '今日の技術サイト：{}\nラベル：{}\n入力日：{}\nコメント：{}'.format(site,', '.join(labels),date,comments)
+  #
   try:
-    site = 'https://localhost'
-    msg = '今日の技術サイト：{}'.format(site)
-    submit = msg
     result = client.chat_postMessage(
       channel = channel,
-      text = submit
+      text = msg
     )
     logger.debug(result)
 
@@ -57,9 +64,14 @@ def main(event,content):
 
 """SubTools"""
 def _get_site(index):
-  return site_table.get_item(Key={"id":index})
+  try:
+    response =  site_table.get_item({"id": index, "state": "v0"})
+    return response['Item']
+  
+  except Exception as e:
+    logger.error('Error reading DynamoDB Table: {}'.format(e))
 
 def _random():
-  response = seaquence_table.get_item(Key={"name": "id"})
+  response = seaquence_table.get_item({"name": "id"})
   max_num = response["Item"]["seq"]
   return  random.randint(0,max_num)
