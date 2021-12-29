@@ -4,6 +4,7 @@
 **/.gitignore
 **/__pycache__
 **/.chalice/deployments
+**/.chalice/deployed
 **/.chalice/venv
 
 #
