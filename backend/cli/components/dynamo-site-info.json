@@ -5,7 +5,7 @@
           "AttributeType": "N"
       },
       {
-          "AttributeName": "date",
+          "AttributeName": "state",
           "AttributeType": "S"
       }
   ],
@@ -16,7 +16,7 @@
           "KeyType": "HASH"
       },
       {
-        "AttributeName": "date",
+        "AttributeName": "state",
         "KeyType": "RANGE"
       }
   ],
