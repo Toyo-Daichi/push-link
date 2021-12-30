@@ -3,7 +3,14 @@
   "app_name": "pl-chalice-addDynamo",
   "stages": {
     "dev": {
-      "api_gateway_stage": "api"
+      "manage_iam_role": false,
+      "iam_role_arn": "arn:aws:iam::715316707847:role/lambda_basic_execution",
+      "lambda_timeout": 15,
+      "environment_variables": {
+        "TZ": "Asia/Tokyo",
+        "SITE_TABLE": "",
+        "SEAQUENCE_TABLE": ""
+      }
     }
   }
 }

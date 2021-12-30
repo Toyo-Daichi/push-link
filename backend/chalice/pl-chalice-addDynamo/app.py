@@ -4,7 +4,6 @@ Created from 2021.12.29
 @author: Toyo_Daichi
 """
 
-from random import triangular
 from chalice import Chalice
 from datetime import datetime, timedelta, timezone
 import json
@@ -13,8 +12,8 @@ from logging import getLogger, StreamHandler, Formatter
 import os
 #
 from chalicelib.dynamo import dynamo_api
-from chalicelib.ses import ses_api
-from chalicelib.s3 import s3_api
+#from chalicelib.ses import ses_api
+#from chalicelib.s3 import s3_api
 
 """config"""
 app = Chalice(app_name='pl-chalice-addDynamo')
@@ -32,8 +31,10 @@ stream_handler.setFormatter(handler_format)
 logger.addHandler(stream_handler)
 
 """Main"""
-@app.route('/resource/add', methods=['POST'], content_type=['application/json'])
+@app.route('/resource/add', methods=['POST'], content_types=['application/json'])
 def main():
+  info = app.current_request.json_body
+  logger.error(info)
   # webapi info.
   id = seaquence_table.update_seq({'name':'id'})
   date = datetime.now(timezone(timedelta(hours=+9),'Asia/Tokyo'))
