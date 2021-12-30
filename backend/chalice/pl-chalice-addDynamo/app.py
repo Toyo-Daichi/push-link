@@ -4,7 +4,9 @@ Created from 2021.12.29
 @author: Toyo_Daichi
 """
 
+from random import triangular
 from chalice import Chalice
+from datetime import datetime, timedelta, timezone
 import json
 import logging
 from logging import getLogger, StreamHandler, Formatter
@@ -30,9 +32,24 @@ stream_handler.setFormatter(handler_format)
 logger.addHandler(stream_handler)
 
 """Main"""
-@app.route('/resource/add', methods=['POST'])
+@app.route('/resource/add', methods=['POST'], content_type=['application/json'])
 def main():
+  # webapi info.
+  id = seaquence_table.update_seq({'name':'id'})
+  date = datetime.now(timezone(timedelta(hours=+9),'Asia/Tokyo'))
+  state = {'state':'v0'}
+  #
+  info = app.current_request.json_body
+  if (_valid_key(info) == False):
+    logger.error(info)
+    logger.error('Error input data format')
+  #
+  comments = {'comments':'example'}
+  site = {'site':'https://localhost:3000'}
+  labels = {'labels':['AWS','Python']}
+
   try:
+    site_table.put_item(id, date, state, comments, site, labels)
     return {
       'statusCode': 200,
       'headers': {
@@ -44,7 +61,7 @@ def main():
     }
 
   except Exception as e:
-    logger.error('Error posting message: {}'.format(e))
+    logger.error('Error adding Dynamo message: {}, {}'.format(e,info))
     return {
       'statusCode': 500,
       'headers': {
@@ -56,3 +73,7 @@ def main():
     }
 
 """SubTools"""
+def _valid_key(info):
+  if (info.has_key('key') == False):
+    return False
+  return True
