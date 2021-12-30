@@ -8,8 +8,8 @@
       "lambda_timeout": 15,
       "environment_variables": {
         "TZ": "Asia/Tokyo",
-        "SITE_TABLE": "",
-        "SEAQUENCE_TABLE": ""
+        "SITE_TABLE": "pl-dynamo-site-dev",
+        "SEAQUENCE_TABLE": "pl-dynamo-seaquence-dev"
       }
     }
   }

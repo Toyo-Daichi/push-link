@@ -33,21 +33,17 @@ logger.addHandler(stream_handler)
 """Main"""
 @app.route('/resource/add', methods=['POST'], content_types=['application/json'])
 def main():
-  info = app.current_request.json_body
-  logger.error(info)
   # webapi info.
   id = seaquence_table.update_seq({'name':'id'})
-  date = datetime.now(timezone(timedelta(hours=+9),'Asia/Tokyo'))
+  now = datetime.now(timezone(timedelta(hours=+9),'Asia/Tokyo')) 
+  date = {'date': now.strftime('%Y-%m-%dT%H:%M:%S%z')}
   state = {'state':'v0'}
   #
   info = app.current_request.json_body
-  if (_valid_key(info) == False):
-    logger.error(info)
-    logger.error('Error input data format')
   #
-  comments = {'comments':'example'}
-  site = {'site':'https://localhost:3000'}
-  labels = {'labels':['AWS','Python']}
+  comments = {'comments': info['comments']}
+  site = {'site': info['site']}
+  labels = {'labels': info['labels']}
 
   try:
     site_table.put_item(id, date, state, comments, site, labels)
@@ -73,8 +69,3 @@ def main():
       'body': json.dumps('Sorry ... :( ')
     }
 
-"""SubTools"""
-def _valid_key(info):
-  if (info.has_key('key') == False):
-    return False
-  return True
