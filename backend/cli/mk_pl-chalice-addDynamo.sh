@@ -30,7 +30,9 @@ cat << EOF > ${config}
       "environment_variables": {
         "TZ": "Asia/Tokyo",
         "SITE_TABLE": "${SITE_TABLE}",
-        "SEAQUENCE_TABLE": "${SEAQUENCE_TABLE}"
+        "SEAQUENCE_TABLE": "${SEAQUENCE_TABLE}",
+        "MAIL_TO": "${MAIL_TO}",
+        "MAIL_FROM": "${MAIL_FROM}"
       }
     }
   }

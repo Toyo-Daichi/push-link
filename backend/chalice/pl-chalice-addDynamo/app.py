@@ -13,6 +13,7 @@ import os
 #
 from chalicelib.dynamo import dynamo_api
 from chalicelib.ses import ses_api
+from chalicelib.s3 import s3_api
 
 """config"""
 app = Chalice(app_name='pl-chalice-addDynamo')
@@ -46,7 +47,7 @@ def main():
 
   try:
     site_table.put_item(id, date, state, comments, site, labels)
-    _send_mail()   
+    _send_mail(id['id'])
     
     return {
       'statusCode': 200,
@@ -71,25 +72,22 @@ def main():
     }
 
 """SubTools"""
-def _send_mail(type):
+def _send_mail(id):
   # Mail Contents
   mail_to, mail_from = os.environ['MAIL_TO'], os.environ['MAIL_FROM']
   mail_subject = '登録報告完了'
   mail_method = ses_api(mail_from)
 
   #s3 read
-  s3_mail_announce = s3_api('toyooka-s3-alert', 'mail/recover.txt')
+  s3_mail_announce = s3_api('pl-s3-mail', 'mail-body.txt')
+  #
   _message = s3_mail_announce.s3_obj_read()
+  mail_message = _message.replace('<id>', str(id))
 
-  #
-  mail_message = _message.replace(
-      '<EC2InstanceId>', ec2_instanceId
-    )
-  #
   try:
     response_email = mail_method.send_email(mail_to,mail_subject,mail_message)
     logger.debug('Sending message.')
   except Exception as e:
-    logger.error('Error adding Dynamo message: {}'.format(e))
+    logger.error('Error sending message: {}'.format(e))
 
   return response_email
