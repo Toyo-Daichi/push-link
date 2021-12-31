@@ -89,5 +89,3 @@ def _send_mail(id):
     logger.debug('Sending message.')
   except Exception as e:
     logger.error('Error sending message: {}'.format(e))
-
-  return response_email
