@@ -6,11 +6,11 @@
 #----------------------------------------------------------------------
 sysname='pl'
 type='s3'
-use='mail'
+use='export'
 bucket_name=${sysname}-${type}-${use}
 object_path=`pwd`/components/
 #
-status='upload' # 'create' or 'upload'
+status='create' # 'create' or 'upload'
 
 #----------------------------------------------------------------------
 # +++ Functions
