@@ -38,7 +38,6 @@ logger.addHandler(stream_handler)
 
 @app.schedule('cron(0 9 ? * MON-FRI *)')
 def main():
-  
   index = _random()
   response = _get_site(index)
   site = response['site']
