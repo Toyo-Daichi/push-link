@@ -2,12 +2,8 @@
 **/.chalice
 **/__pycache__
 **/package-lock.json
+**/node_modules
 
-# dependencies
-**/.pnp
-**/.pnp.js
-# testing
-**/coverage
 # misc
 **/.DS_Store
 **/.env.local
