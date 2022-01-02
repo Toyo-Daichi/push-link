@@ -4,6 +4,7 @@ frontend:
     build:
       commands: [
         'cd frontend',
+				'npm update',
         'npm install',
         'npm run build'
       ]
