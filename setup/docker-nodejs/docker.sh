@@ -19,7 +19,7 @@ select status in ${statuses}; do
     docker build -t ${image_name} .
   elif [ ${status} = 'login' ]; then
     docker run -it --rm  \
-      -u `id -u ${USER}` \
+      -u 1001 \
       -v ${HOME}/:/home/${user_name} -v ${HOME}/.aws/:/home/${user_name}/.aws \
       -e AWS_PROFILE -e AWS_DEFAULT_REGION \
       -p 3000:3000 -p 8080:8080 -p 39895:39895 \
