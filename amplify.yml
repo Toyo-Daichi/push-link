@@ -1,12 +1,11 @@
 version: 1
 frontend:
+  env:
+    variables:
+      VERSION_NODE_DEFAULT: 17
   phases:
     prebuild:
       commands: [
-        'npm install -g install',
-        'npm install -g n',
-        'n latest',
-        'node -v',
         'npm update -g npm'
       ]
     build:
@@ -19,5 +18,6 @@ frontend:
     baseDirectory: frontend/build
     files:
       - '**/*'
-    cache:
-      paths: []
+  cache:
+    paths:
+      - node_modules/**/*
