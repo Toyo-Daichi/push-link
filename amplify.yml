@@ -1,8 +1,5 @@
 version: 1
 frontend:
-  env:
-    variables:
-      VERSION_NODE_DEFAULT: 17
   phases:
     prebuild:
       commands: [
