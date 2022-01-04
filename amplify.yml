@@ -5,7 +5,7 @@ frontend:
       commands: [
         'cd frontend',
         'npm install -g install',
-        'npm install'
+        'npm install',
         'npm run build'
       ]
   artifacts:
