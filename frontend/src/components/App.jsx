@@ -1,28 +1,33 @@
+import { Grid } from '@material-ui/core'
 // components
-import Input from './Input'
+import Content from './Content'
 // style
 import classes from './App.module.scss'
 // icons
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import GitHubIcon from '@mui/icons-material/GitHub';
 
-export default () => {
+const App = () => {
 
   return (
     <div className='App'>
       <header>
-        <BorderColorIcon />
-        <h2>技術伝授App</h2>
+        <Grid container spacing={1}>
+          <Grid item xs={1.5}>
+            <BorderColorIcon sx={{fontSize:30}}/>
+          </Grid>
+          <Grid item xs={10.5}>
+            <h2>技術伝授App</h2>
+          </Grid>
+        </Grid>
       </header>
-      <hr />
       <div className={classes.container}>
-        <Input />
+        <Content />
       </div>
-      <hr />
       <footer>
         ©2022
-        <GitHubIcon />
       </footer>
     </div>
   );
 }
+
+export default App
