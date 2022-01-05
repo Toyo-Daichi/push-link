@@ -5,6 +5,7 @@ import { Step } from '@material-ui/core'
 import { StepLabel } from '@material-ui/core'
 import { Stepper } from '@material-ui/core'
 
+// parms
 const getSteps = ['入力フォーム', '確認フォーム', '登録完了メール送信']
 
 const getStepContent = (props) => {
@@ -23,6 +24,7 @@ const getStepContent = (props) => {
   }
 }
 
+// Main
 const Content = () => {
 
   const [activeStep, setActivStep] = useState(0)
@@ -39,9 +41,9 @@ const Content = () => {
   return (
     <Grid container>
       <Grid sm={12}>
-        <Stepper activeStep={0} alternativeLabel>
+        <Stepper activeStep={activeStep} alternativeLabel>
           {getSteps.map((label) => (
-            <Step key={label}>
+            <Step key={label} >
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
