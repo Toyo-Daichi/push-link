@@ -1,9 +1,8 @@
 import { Grid } from '@material-ui/core'
-// components
+//
 import Content from './Content'
-// style
+//
 import classes from './App.module.scss'
-// icons
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 const App = () => {
