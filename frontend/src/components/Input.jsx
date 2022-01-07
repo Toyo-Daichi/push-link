@@ -5,34 +5,32 @@ import { InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
 //
 import { updateContent } from '../cache'
 // styles
-import classes from './Input.module.scss' 
+import classes from './App.module.scss' 
 
 // Main
-const Input = ({handleNext}) => {
+const Input = (props) => {
   const { state: { initialCache }, actions } = useStateMachine({ updateContent })
   const [site, setSite] = useState(initialCache.site)
   const [kind, setKind] = useState(initialCache.kind)
   const [labels, setLabels] = useState(initialCache.labels)
   //
-  const Introduction = () => {
-    return <p>DX案件で調べた技術調査を記録として残しましょう！</p>
-  }
-  const handleSubmit = (props) => {
-    actions.updateContent({site,labels})
+  const handleSubmit = () => {
+    console.log('hello')
+    actions.updateContent({site,kind,labels})
     props.handleNext()
   }
-
+  
   return (
     <>
-      <Introduction />
-      <form onSubmit={(event)=>handleSubmit(event)}>
+      <p>DX案件で調べた技術調査を記録として残しましょう！</p>
+      <form onSubmit={(event)=>handleSubmit(event)} action='?'>
         <p>1. 参考になったサイトを入力して下さい。</p>
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <FormControl fullWidth>
-              <InputLabel id="site-kind">　サイト種類</InputLabel>
+              <InputLabel id="site-kind"> サイト種類</InputLabel>
               <Select
-                labelId="site-kind" id="site-kind-id" value={kind} label="" variant='filled'
+                labelId="site-kind" id="site-kind-id" value={kind} label="" variant='standard'
                 MenuProps={{
                   anchorOrigin: {
                     vertical: "bottom",
@@ -44,7 +42,7 @@ const Input = ({handleNext}) => {
                   },
                   getContentAnchorEl: null,
                 }}
-                onChange={(event)=>setKind(event.target.value)}
+                onChange={(event)=>setKind(event.value)}
               >
                 <MenuItem value={'Qiita'}>Qiita</MenuItem>
                 <MenuItem value={'Zenn'}>Zenn</MenuItem>
@@ -56,7 +54,7 @@ const Input = ({handleNext}) => {
           </Grid>
           <Grid item xs={8}>
             <TextField
-              id="outlined-textarea" label="サイトURL" placeholder="https://" variant='filled' fullWidth
+              id="outlined-textarea" label="サイトURL" placeholder="https://" variant='standard' fullWidth
               onChange={(event)=>setSite(event.target.value)}  
             />
           </Grid>
@@ -66,9 +64,15 @@ const Input = ({handleNext}) => {
           id="outlined-textarea" label="技術カテゴリ" placeholder="https://localhost:3000" fullWidth
           onChange={(event)=>setLabels(event.target.value)}  
         />
-        <div className={classes.button}>
-          <Button>次へ</Button>
-        </div>
+        <div className={classes.blank}></div>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <Button variant="outlined" disabled fullWidth>戻る</Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button type='submit' variant="contained" color='primary' fullWidth>次へ</Button>
+          </Grid>
+        </Grid>
       </form>
     </>
   )

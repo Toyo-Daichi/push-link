@@ -3,7 +3,7 @@ export const initialState = {
     site: '',
     kind: '',
     labels: [],
-    comments: ''
+    comments: '',
   }
 }
 
