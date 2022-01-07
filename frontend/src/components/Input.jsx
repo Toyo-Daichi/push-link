@@ -15,14 +15,12 @@ const Input = (props) => {
   const [labels, setLabels] = useState(initialCache.labels)
   //
   const handleSubmit = () => {
-    console.log('hello')
     actions.updateContent({site,kind,labels})
     props.handleNext()
   }
   
   return (
     <>
-      <p>DX案件で調べた技術調査を記録として残しましょう！</p>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
         <p>1. 参考になったサイトを入力して下さい。</p>
         <Grid container spacing={2}>

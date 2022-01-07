@@ -36,7 +36,7 @@ const InputText = (props) => {
           </Grid>
           <Grid item xs={6}>
             <Button type='submit' variant="contained" color='primary' onClick={()=>handleSubmit('next')} fullWidth>
-              完了
+              次へ
             </Button>
           </Grid>
         </Grid>

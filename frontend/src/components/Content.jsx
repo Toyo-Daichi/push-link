@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Grid, Step, StepLabel, Stepper } from '@material-ui/core'
 // conponent
 import Input from './Input'
+import InputText from './InputText'
 import Confirm from './Confirm'
-import End from './End'
 
 const Content = () => {
   const [activeStep, setActiveStep] = useState(0)
@@ -21,27 +21,30 @@ const Content = () => {
       case 0:
         return <Input handleNext={handleNext}/>
       case 1:
-        return <Confirm handleBack={handleBack} handleNext={handleNext}/>
+        return <InputText handleBack={handleBack} handleNext={handleNext}/>
       case 2:
-        return <End />
+        return <Confirm />
       default:
         return 'Unknwon stepIndex'
     }
   }
 
   return (
-    <Grid container>
-      <Grid sm={12}>
-        <Stepper activeStep={activeStep} alternativeLabel>
-          {getSteps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        {getStepContent({activeStep})}
+    <>
+    <p>DX案件で調べた技術調査を記録として残しましょう！</p>
+      <Grid container>
+        <Grid sm={12}>
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {getSteps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          {getStepContent({activeStep})}
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   )
 }
 
