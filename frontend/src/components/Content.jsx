@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Grid, Step, StepLabel, Stepper } from '@material-ui/core'
 // conponent
-import Input from './Input'
+import InputSite from './Input'
 import InputText from './InputText'
 import Confirm from './Confirm'
 
@@ -19,7 +19,7 @@ const Content = () => {
   const getStepContent = (props) => {
     switch (props.activeStep){
       case 0:
-        return <Input handleNext={handleNext}/>
+        return <InputSite handleNext={handleNext}/>
       case 1:
         return <InputText handleBack={handleBack} handleNext={handleNext}/>
       case 2:

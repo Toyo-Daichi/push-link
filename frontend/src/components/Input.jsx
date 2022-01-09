@@ -1,24 +1,42 @@
 import { useState } from 'react'
 import { useStateMachine } from 'little-state-machine'
-import { Button, FormControl, Grid} from '@material-ui/core'
+import { Box, Button, Chip, FormControl, Grid} from '@material-ui/core'
 import { InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
+import { useTheme } from '@mui/material/styles'
 //
 import { updateContent } from '../cache'
 // styles
 import classes from './App.module.scss' 
 
 // Main
-const Input = (props) => {
+const InputSite = (props) => {
   const { state: { initialCache }, actions } = useStateMachine({ updateContent })
   const [site, setSite] = useState(initialCache.site)
   const [kind, setKind] = useState(initialCache.kind)
   const [labels, setLabels] = useState(initialCache.labels)
   //
+  const labelList = [
+    'AWS', 'Azure', 'Git', 'Docker', 'Python', 'Javascript', 'TypeScript', 'React'
+  ]
+  const theme = useTheme()
+  function getStyles(name, personName, theme) {
+    return {
+      fontWeight:
+        personName.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
+  const handleChange = (event) => {
+    const { target: {value} } = event
+    setLabels(value)
+    actions.updateContent({labels})
+  }
+  //
   const handleSubmit = () => {
-    actions.updateContent({site,kind,labels})
+    actions.updateContent({site,kind})
     props.handleNext()
   }
-  
   return (
     <>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
@@ -26,9 +44,9 @@ const Input = (props) => {
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <FormControl fullWidth>
-              <InputLabel id="site-kind"> サイト種類</InputLabel>
+              <InputLabel id="site-kind">サイト種類</InputLabel>
               <Select
-                labelId="site-kind" id="site-kind-id" value={kind} label="" variant='standard'
+                labelId="site-kind" id="site-kind-id" value={initialCache.kind} label="" variant='standard'
                 MenuProps={{
                   anchorOrigin: {
                     vertical: "bottom",
@@ -40,12 +58,12 @@ const Input = (props) => {
                   },
                   getContentAnchorEl: null,
                 }}
-                onChange={(event)=>setKind(event.value)}
+                onChange={(event)=>setKind(event.target.value)}
               >
                 <MenuItem value={'Qiita'}>Qiita</MenuItem>
                 <MenuItem value={'Zenn'}>Zenn</MenuItem>
                 <MenuItem value={'Classmethod'}>Class method</MenuItem>
-                <MenuItem value={'公式Reference'}>AWS 公式Reference</MenuItem>
+                <MenuItem value={'公式Reference'}>公式Reference</MenuItem>
                 <MenuItem value={'その他'}>その他</MenuItem>
               </Select>
             </FormControl>
@@ -53,16 +71,48 @@ const Input = (props) => {
           <Grid item xs={8}>
             <TextField
               id="outlined-textarea" label="サイトURL" placeholder="https://" variant='standard' fullWidth
-              onChange={(event)=>setSite(event.target.value)}  
+              onChange={(event)=>setSite(event.target.value)} value={initialCache.site}
             />
           </Grid>
         </Grid>
         <p>2. 参考になったサイトのカテゴリを入力して下さい。</p>
-        <TextField
-          id="outlined-textarea" label="技術カテゴリ" placeholder="https://localhost:3000" fullWidth
-          onChange={(event)=>setLabels(event.target.value)}  
-        />
-        <div className={classes.blank}></div>
+        <FormControl fullWidth>
+        <InputLabel id="multiple-chip-label">技術カテゴリ</InputLabel>
+        <Select
+          labelId="multiple-chip-label" id="multiple-chip"
+          multiple variant='standard' value={initialCache.labels}
+          onChange={handleChange}
+          renderValue={(selected) => (
+            <Box>
+              {selected.map((value) => (
+                <Chip key={value} label={value} />
+              ))}
+            </Box>
+          )}
+          MenuProps={{
+            anchorOrigin: {
+              vertical: "bottom",
+              horizontal: "left"
+            },
+            transformOrigin: {
+              vertical: "top",
+              horizontal: "left"
+            },
+            getContentAnchorEl: null,
+          }}
+        >
+          {labelList.map((name) => (
+            <MenuItem
+              key={name}
+              value={name}
+              style={getStyles(name, labelList, theme)}
+            >
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <div className={classes.blank}></div>
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <Button variant="outlined" disabled fullWidth>戻る</Button>
@@ -76,4 +126,4 @@ const Input = (props) => {
   )
 }
 
-export default Input
+export default InputSite
