@@ -32,6 +32,10 @@ const InputSite = (props) => {
     setLabels(value)
     actions.updateContent({labels})
   }
+  const chipDelete = (event) => {
+    setLabels(labels.filter(value => value !== event))
+    actions.updateContent({labels})
+  }
   //
   const handleSubmit = () => {
     actions.updateContent({site,kind})
@@ -85,7 +89,11 @@ const InputSite = (props) => {
           renderValue={(selected) => (
             <Box>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip 
+                  key={value} label={value} 
+                  onDelete={(event) => { chipDelete(value) }}
+                  onMouseDown={(event) => {event.stopPropagation()}}
+                />
               ))}
             </Box>
           )}
