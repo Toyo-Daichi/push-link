@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Grid, Step, StepLabel, Stepper } from '@material-ui/core'
 // conponent
-import InputSite from './Input'
+import InputSite from './InputSite'
 import InputText from './InputText'
 import Confirm from './Confirm'
+import End from './End'
 
 const Content = () => {
   const [activeStep, setActiveStep] = useState(0)
@@ -15,15 +16,20 @@ const Content = () => {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep-1)
   }
+  const handleReset = () => {
+    setActiveStep(0)
+  }
   //
   const getStepContent = (props) => {
     switch (props.activeStep){
       case 0:
-        return <InputSite handleNext={handleNext}/>
+        return <InputSite handleNext={handleNext} />
       case 1:
-        return <InputText handleBack={handleBack} handleNext={handleNext}/>
+        return <InputText handleBack={handleBack} handleNext={handleNext} />
       case 2:
-        return <Confirm />
+        return <Confirm handleBack={handleBack} handleNext={handleNext} />
+      case 3:
+        return <End handleReset={handleReset} />
       default:
         return 'Unknwon stepIndex'
     }
