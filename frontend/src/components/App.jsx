@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <div className='App'>
-      <header>
+      <div className={classes.header}>
         <Grid container spacing={1}>
           <Grid item xs={1.5}>
             <BorderColorIcon sx={{fontSize:30}}/>
@@ -18,13 +18,13 @@ const App = () => {
             <h2>技術伝授App</h2>
           </Grid>
         </Grid>
-      </header>
+      </div>
       <div className={classes.container}>
         <Content />
       </div>
-      <footer>
+      <div className={classes.footer}>
         ©2022
-      </footer>
+      </div>
     </div>
   );
 }

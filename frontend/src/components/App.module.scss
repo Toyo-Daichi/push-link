@@ -1,4 +1,4 @@
-header{
+.header{
   margin: 0 auto;
   padding: 10px 0 0 10px;
   background-color: #ABE1FA;
@@ -12,11 +12,16 @@ header{
   margin-right: auto;
 }
 
+.timeline{
+  width: 95%;
+  height: 600px;
+}
+
 .blank{
   height: 40px;
 }
 
-footer{
+.footer{
   margin: 0 auto;
   background-color: #ABE1FA;
   text-align: center;

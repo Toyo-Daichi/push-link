@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useStateMachine } from 'little-state-machine'
+import { Chrono} from 'react-chrono'
 import { Button, Grid, TextField } from '@material-ui/core'
-import { Timeline, TimelineItem } from '@mui/lab'
-import { TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot} from '@mui/lab'
 //
 import { updateContent } from '../cache'
 // styles
@@ -11,7 +10,22 @@ import classes from './App.module.scss'
 const InputText = (props) => {
   const { state: { initialCache }, actions } = useStateMachine({ updateContent })
   const [comments, setComments] = useState(initialCache.comments)
-
+  //
+  const timelines = [
+    {
+      title: "2022.1.10",
+      cardTitle: "Dunkirk",
+      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
+    },
+    {
+      title: "May 1940",
+      cardTitle: "Dunkirk",
+      url: "http://www.history.com",
+      cardSubtitle:"Men of the British Expeditionary Force (BEF) wade out to..",
+      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
+    }
+  ]
+  //
   const handleSubmit = (action) => {
     if (action === 'back'){
       props.handleBack()
@@ -24,27 +38,15 @@ const InputText = (props) => {
   return (
     <>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
-        <p>3. どんな問題に対して参考になったかどうかを入力して下さい。過去の3投稿を参考に掲載します！</p>
-        <Timeline>
-          <TimelineItem>
-            <TimelineSeparator>
-              <TimelineDot />
-              <TimelineConnector />
-              <TimelineContent>
-                Eat
-              </TimelineContent>
-            </TimelineSeparator>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineSeparator>
-              <TimelineDot />
-              <TimelineConnector />
-              <TimelineContent>
-                Code
-              </TimelineContent>
-            </TimelineSeparator>
-          </TimelineItem>
-        </Timeline>
+        <p>3. どんな問題に対して参考になったかどうかを入力して下さい。過去の5投稿を参考に掲載します！</p>
+        <div className={classes.timeline}>
+          <Chrono items={timelines}
+          mode="VERTICAL"
+          slideShow
+          slideItemDuration={4000}
+          cardHeight={150}
+          scrollable={{ scrollbar: false }} />
+        </div>
         <TextField 
           variant='outlined' multiline rows={4} fullWidth
           onChange={(event)=>setComments(event.target.value)}
