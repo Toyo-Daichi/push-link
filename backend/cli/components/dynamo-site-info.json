@@ -1,0 +1,27 @@
+{
+  "AttributeDefinitions": [
+      {
+          "AttributeName": "id",
+          "AttributeType": "N"
+      },
+      {
+          "AttributeName": "state",
+          "AttributeType": "S"
+      }
+  ],
+  "TableName": "pl-dynamo-site-dev",
+  "KeySchema": [
+      {
+          "AttributeName": "id",
+          "KeyType": "HASH"
+      },
+      {
+        "AttributeName": "state",
+        "KeyType": "RANGE"
+      }
+  ],
+  "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+  }
+}
