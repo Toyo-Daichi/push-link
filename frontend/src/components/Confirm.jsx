@@ -16,15 +16,13 @@ const Confirm = (props) => {
   //
   const timelines = [
     {
-      title: "2022.1.10",
-      cardTitle: "Dunkirk",
+      title: "AWS Python",
+      cardTitle: "https://localhost:3000",
       cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
     },
     {
-      title: "May 1940",
-      cardTitle: "Dunkirk",
-      url: "http://www.history.com",
-      cardSubtitle:"Men of the British Expeditionary Force (BEF) wade out to..",
+      title: "AWS Python",
+      cardTitle: "https://localhost:3000",
       cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
     }
   ]
@@ -48,12 +46,30 @@ const Confirm = (props) => {
     <>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
         <p>下記の内容でお待ちがいないですか？</p>
-        <p>同カテゴリでは下記の内容が既に登録されています。似たような記事がある場合は、過去投稿にまとめて情報を整理しましょう！</p>
-        <Chrono items={timelines} />
-        <p>サイトカテゴリ/サイト名：{kind}{site}</p>
-        <p>技術カテゴリ：{labels}</p>
-        <p>コメント：</p>
-        {comments}
+        <p>同カテゴリでは下記の内容が既に登録されています。<br />⇒似たような記事がある場合は、過去投稿にまとめて情報を整理しましょう！</p>
+        <p>カテゴリ/サイト名：
+          <ul>
+            <li>{kind}</li><li>{site}</li>
+          </ul>
+        </p>
+        <p>技術カテゴリ：<ul>{labels.map(
+            (label) => {
+              return (
+                <li>{label}</li>
+              )
+            })}</ul>
+        </p>
+        <p>コメント：<br/>
+          {comments}
+        </p>
+        <div className={classes.timelineCategory}>
+        <Chrono items={timelines}
+          mode="VERTICAL"
+          hideControls
+          slideItemDuration={4000}
+          cardHeight={150}
+          scrollable={{ scrollbar: true }} />
+        </div>
         <div className={classes.blank}></div>
         <Grid container spacing={2}>
           <Grid item xs={6}>

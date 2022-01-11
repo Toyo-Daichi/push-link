@@ -75,11 +75,11 @@ const InputSite = (props) => {
           <Grid item xs={8}>
             <TextField
               id="outlined-textarea" label="サイトURL" placeholder="https://" variant='standard' fullWidth
-              onChange={(event)=>setSite(event.target.value)} value={initialCache.site}
+              onChange={(event)=>setSite(event.target.value)} value={site}
             />
           </Grid>
         </Grid>
-        <p>2. 参考になったサイトのカテゴリを入力して下さい。</p>
+        <p>2. 参考になったサイトのカテゴリを入力して下さい。（※ダブルクリック推奨）</p>
         <FormControl fullWidth>
         <InputLabel id="multiple-chip-label">技術カテゴリ</InputLabel>
         <Select
@@ -91,7 +91,7 @@ const InputSite = (props) => {
               {selected.map((value) => (
                 <Chip 
                   key={value} label={value} 
-                  onDelete={(event) => { chipDelete(value) }}
+                  onDelete={() => { chipDelete(value) }}
                   onMouseDown={(event) => {event.stopPropagation()}}
                 />
               ))}

@@ -60,11 +60,12 @@ const InputText = (props) => {
         <div className={classes.timeline}>
           <Chrono items={timelines}
           mode="VERTICAL"
-          slideShow
+          hideControls
           slideItemDuration={4000}
           cardHeight={150}
-          scrollable={{ scrollbar: false }} />
+          scrollable={{ scrollbar: true }} />
         </div>
+        <div className={classes.blank}></div>
         <TextField 
           variant='outlined' multiline rows={4} fullWidth
           onChange={(event)=>setComments(event.target.value)}
