@@ -28,13 +28,11 @@ const Confirm = (props) => {
     }
   ]
   //
-  const dataSubmit = async(event) => {
-    event.preventDefault()
-    console.log('1')
+  const dataSubmit = async() => {
     const apiPath = 'https://niw1ev59c2.execute-api.ap-northeast-1.amazonaws.com/api/resource/add'
     const postData = {site,kind,labels,comments}
     const response = await axios.post(apiPath, postData)
-    console.log(response)
+    console.log(response.data)
   }
   //
   const handleSubmit = (action) => {
