@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useState } from 'react'
 import { useStateMachine } from 'little-state-machine'
 import { Chrono} from 'react-chrono'
@@ -27,10 +28,18 @@ const Confirm = (props) => {
     }
   ]
   //
+  const dataSubmit = async() => {
+    const apiPath = 'https://niw1ev59c2.execute-api.ap-northeast-1.amazonaws.com/api/resource/add'
+    const postData = {site,kind,labels,comments}
+    const response = await axios.post(apiPath, postData)
+    console.log(response.data)
+  }
+  //
   const handleSubmit = (action) => {
     if (action === 'back'){
       props.handleBack()
     } else if (action === 'next'){
+      dataSubmit()
       actions.updateContent(
         { site: '',
           kind: '',
@@ -59,9 +68,11 @@ const Confirm = (props) => {
               )
             })}</ul>
         </p>
-        <p>コメント：<br/>
+        <p>コメント：</p>
+        <div className={classes.comments}>
           {comments}
-        </p>
+        </div>
+        <div className={classes.blank}></div>
         <div className={classes.timelineCategory}>
         <Chrono items={timelines}
           mode="VERTICAL"

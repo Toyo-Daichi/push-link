@@ -5,7 +5,7 @@
           "AttributeType": "S"
       }
   ],
-  "TableName": "pl-dynamo-seaquence-dev",
+  "TableName": "pl-dynamo-seaquence-prod",
   "KeySchema": [
       {
           "AttributeName": "name",

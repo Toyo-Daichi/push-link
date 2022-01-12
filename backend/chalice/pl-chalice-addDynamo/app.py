@@ -31,7 +31,7 @@ stream_handler.setFormatter(handler_format)
 logger.addHandler(stream_handler)
 
 """Main"""
-@app.route('/resource/add', methods=['POST'], content_types=['application/json'])
+@app.route('/resource/add', methods=['POST'], content_types=['application/json'], cors=True)
 def main():
   # webapi info.
   id = seaquence_table.update_seq({'name':'id'})
@@ -43,10 +43,11 @@ def main():
   #
   comments = {'comments': info['comments']}
   site = {'site': info['site']}
+  kind = {'kind': info['kind']}
   labels = {'labels': info['labels']}
-
+  
   try:
-    site_table.put_item(id, date, state, comments, site, labels)
+    site_table.put_item(id, date, state, comments, site, kind, labels)
     _send_mail(id['id'])
     
     return {
@@ -58,7 +59,7 @@ def main():
       },
       'body': json.dumps('Good job :) '),
     }
-
+  
   except Exception as e:
     logger.error('Error adding Dynamo message: {}, {}'.format(e,info))
     return {
