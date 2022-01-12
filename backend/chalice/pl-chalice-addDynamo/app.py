@@ -90,14 +90,3 @@ def _send_mail(id):
     logger.debug('Sending message.')
   except Exception as e:
     logger.error('Error sending message: {}'.format(e))
-
-def _cors():
-  return {
-      'statusCode': 200,
-      'headers': {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-      'body': json.dumps('Good job :) '),
-    }
