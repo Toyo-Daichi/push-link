@@ -43,10 +43,11 @@ def main():
   #
   comments = {'comments': info['comments']}
   site = {'site': info['site']}
+  kind = {'kind': info['kind']}
   labels = {'labels': info['labels']}
 
   try:
-    site_table.put_item(id, date, state, comments, site, labels)
+    site_table.put_item(id, date, state, comments, site, kind, labels)
     _send_mail(id['id'])
     
     return {

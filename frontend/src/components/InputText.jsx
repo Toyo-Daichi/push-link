@@ -67,7 +67,7 @@ const InputText = (props) => {
         </div>
         <div className={classes.blank}></div>
         <TextField 
-          variant='outlined' multiline rows={4} fullWidth
+          variant='outlined' multiline rows={6} fullWidth
           onChange={(event)=>setComments(event.target.value)}
         />
         <div className={classes.blank}></div>
