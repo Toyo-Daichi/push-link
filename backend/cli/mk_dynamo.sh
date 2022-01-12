@@ -6,8 +6,8 @@
 #----------------------------------------------------------------------
 sysname='pl'
 type='dynamo'
-uses='site' # 'site' or 'seaquence'
-env='dev'
+uses='seaquence' # 'site' or 'seaquence'
+env='prod'
 #
 table_name=${sysname}-${type}-${uses}-${env}
 table_file=./components/${type}-${uses}-info.json

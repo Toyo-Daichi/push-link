@@ -23,6 +23,9 @@
       "comments": {
         "S": "example"
       },
+      "kind": {
+        "S": "Qiita"
+      },
       "site": {
         "S": "https://localhost:3000"
       }

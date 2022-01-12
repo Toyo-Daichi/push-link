@@ -9,7 +9,7 @@
           "AttributeType": "S"
       }
   ],
-  "TableName": "pl-dynamo-site-dev",
+  "TableName": "pl-dynamo-site-prod",
   "KeySchema": [
       {
           "AttributeName": "id",
