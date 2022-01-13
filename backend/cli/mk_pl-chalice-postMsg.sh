@@ -27,7 +27,6 @@ cat << EOF > ${config}
       "iam_role_arn": "arn:aws:iam::${AWS_ACCOUNT_ID}:role/lambda_basic_execution",
       "lambda_timeout": 15,
       "environment_variables": {
-        "TZ": "Asia/Tokyo",
         "SLACK_TOKEN": "${SLACK_TOKEN}",
         "SLACK_CHANNEL": "${SLACK_CHANNEL}",
         "SITE_TABLE": "${SITE_TABLE}",
