@@ -16,7 +16,7 @@ const InputSite = (props) => {
   const [labels, setLabels] = useState(initialCache.labels)
   //
   const labelList = [
-    'AWS', 'Azure', 'Git', 'Docker', 'Python', 'Javascript', 'TypeScript', 'React'
+    'AWS', 'Azure', 'Linux', 'Git', 'Docker', 'Python', 'Javascript', 'TypeScript', 'React', 'Other', 'Column'
   ]
   const theme = useTheme()
   function getStyles(name, personName, theme) {
