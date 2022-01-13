@@ -3,7 +3,7 @@
 
 echo 'Prepared $chalice new-project function_name'
 #
-chome=${HOME}/Terminal/push-link/backend/chalice
+chome=${HOME}/push-link/backend/chalice
 export AWS_ACCOUNT_ID=`aws sts get-caller-identity | jq '.Account' | sed 's/"//g' `
 
 #----------------------------------------------------------------------
@@ -15,7 +15,6 @@ use='postMsg'
 app_name=${sysname}-${type}-${use}
 config=${chome}/${app_name}/.chalice/config.json
 stage='prod'
-profile='dev'
 status='update' # 'create' or 'update'
 
 cat << EOF > ${config}
@@ -28,7 +27,6 @@ cat << EOF > ${config}
       "iam_role_arn": "arn:aws:iam::${AWS_ACCOUNT_ID}:role/lambda_basic_execution",
       "lambda_timeout": 15,
       "environment_variables": {
-        "TZ": "Asia/Tokyo",
         "SLACK_TOKEN": "${SLACK_TOKEN}",
         "SLACK_CHANNEL": "${SLACK_CHANNEL}",
         "SITE_TABLE": "${SITE_TABLE}",

@@ -32,12 +32,8 @@ stream_handler.setFormatter(handler_format)
 logger.addHandler(stream_handler)
 
 """Main"""
-#dev
-#@app.lambda_function()
-#def main(event,content):
-
-@app.schedule('cron(0 9 ? * MON-FRI *)')
-def main():
+@app.schedule('cron(0 17 * * ? *)')
+def main(event):
   index = _random()
   response = _get_site(index)
   site = response['site']
@@ -73,4 +69,4 @@ def _get_site(index):
 def _random():
   response = seaquence_table.get_item({"name": "id"})
   max_num = response["Item"]["seq"]
-  return  random.randint(0,max_num)
+  return  random.randint(1,max_num)
