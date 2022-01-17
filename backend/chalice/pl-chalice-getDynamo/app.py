@@ -5,7 +5,6 @@ Created from 2021.12.31
 """
 
 from chalice import Chalice
-from decimal import Decimal 
 import json
 import logging
 from logging import getLogger, StreamHandler, Formatter

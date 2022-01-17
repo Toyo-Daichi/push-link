@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 import { useStateMachine } from 'little-state-machine'
 import { Chrono} from 'react-chrono'
 import { Button, Grid, TextField } from '@material-ui/core'
@@ -10,7 +11,7 @@ import classes from './App.module.scss'
 const InputText = (props) => {
   const { state: { initialCache }, actions } = useStateMachine({ updateContent })
   const [comments, setComments] = useState(initialCache.comments)
-  // const [timeLines] = useState(initialCache.timeLines)
+  const [timeLines, setTimeLine] = useState([])
   //
   const handleSubmit = (action) => {
     if (action === 'back'){
@@ -21,46 +22,16 @@ const InputText = (props) => {
     }
   }
 
-  //timelines
-  const timeLines = [
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-  ]
-
+  useEffect(() => {
+    const func = async()=> {
+      const getNum = 5
+      const apiPath = `https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
+      const { data } = await axios.get(apiPath)
+      const results = data.body
+      setTimeLine([...timeLines, results])
+    }
+    func()
+  }, [])
 
   return (
     <>

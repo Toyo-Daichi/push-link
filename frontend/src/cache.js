@@ -4,7 +4,6 @@ export const initialState = {
     kind: '',
     labels: [],
     comments: '',
-    timeLines: []
   }
 }
 
