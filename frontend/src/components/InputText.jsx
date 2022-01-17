@@ -10,8 +10,25 @@ import classes from './App.module.scss'
 const InputText = (props) => {
   const { state: { initialCache }, actions } = useStateMachine({ updateContent })
   const [comments, setComments] = useState(initialCache.comments)
+  // const [timeLines] = useState(initialCache.timeLines)
   //
-  const timelines = [
+  const handleSubmit = (action) => {
+    if (action === 'back'){
+      props.handleBack()
+    } else if (action === 'next'){
+      actions.updateContent({comments})
+      props.handleNext()
+    }
+  }
+
+  //timelines
+  const timeLines = [
+    {
+      title: "2022.1.10",
+      cardTitle: "https://localhost:3000",
+      cardSubtitle: "AWS, Python",
+      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
+    },
     {
       title: "2022.1.10",
       cardTitle: "https://localhost:3000",
@@ -43,27 +60,20 @@ const InputText = (props) => {
       cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
     },
   ]
-  //
-  const handleSubmit = (action) => {
-    if (action === 'back'){
-      props.handleBack()
-    } else if (action === 'next'){
-      actions.updateContent({comments})
-      props.handleNext()
-    }
-  }
+
 
   return (
     <>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
         <p>3. どんな問題に対して参考になったかどうかを入力して下さい。過去の5投稿を参考に掲載します！</p>
         <div className={classes.timeline}>
-          <Chrono items={timelines}
-          mode="VERTICAL"
-          hideControls
-          slideItemDuration={4000}
-          cardHeight={150}
-          scrollable={{ scrollbar: true }} />
+          <Chrono items={timeLines}
+            mode="VERTICAL"
+            hideControls
+            slideItemDuration={4000}
+            cardHeight={150}
+            scrollable={{ scrollbar: true }} 
+          />
         </div>
         <div className={classes.blank}></div>
         <TextField 
