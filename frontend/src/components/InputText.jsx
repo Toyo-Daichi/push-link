@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useState } from 'react'
 import { useStateMachine } from 'little-state-machine'
 import { Chrono} from 'react-chrono'
@@ -11,26 +10,7 @@ import classes from './App.module.scss'
 const InputText = (props) => {
   const { state: { initialCache }, actions } = useStateMachine({ updateContent })
   const [comments, setComments] = useState(initialCache.comments)
-  //
-  const getHistory = async() => {
-    const apiPath = 'https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/3'
-    const { data } = await axios.get(apiPath)
-    const results = data.body
-    let timeLines = []
-    for (let i = 0; i < results.length; i++){
-     const eachLabels = results[i].labels
-     const iobj = {
-        title: results[i].date,
-        cardTitle: results[i].site,
-        cardSubtitle: {...eachLabels},
-        cartDetailedTitle: results[i].comments
-      }
-      timeLines.push(iobj)
-    }
-    return timeLines
-  }
-  const timeLines = getHistory()
-  console.log(timeLines)
+  // const [timeLines] = useState(initialCache.timeLines)
   //
   const handleSubmit = (action) => {
     if (action === 'back'){
@@ -41,17 +21,59 @@ const InputText = (props) => {
     }
   }
 
+  //timelines
+  const timeLines = [
+    {
+      title: "2022.1.10",
+      cardTitle: "https://localhost:3000",
+      cardSubtitle: "AWS, Python",
+      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
+    },
+    {
+      title: "2022.1.10",
+      cardTitle: "https://localhost:3000",
+      cardSubtitle: "AWS, Python",
+      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
+    },
+    {
+      title: "2022.1.10",
+      cardTitle: "https://localhost:3000",
+      cardSubtitle: "AWS, Python",
+      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
+    },
+    {
+      title: "2022.1.10",
+      cardTitle: "https://localhost:3000",
+      cardSubtitle: "AWS, Python",
+      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
+    },
+    {
+      title: "2022.1.10",
+      cardTitle: "https://localhost:3000",
+      cardSubtitle: "AWS, Python",
+      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
+    },
+    {
+      title: "2022.1.10",
+      cardTitle: "https://localhost:3000",
+      cardSubtitle: "AWS, Python",
+      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
+    },
+  ]
+
+
   return (
     <>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
         <p>3. どんな問題に対して参考になったかどうかを入力して下さい。過去の5投稿を参考に掲載します！</p>
         <div className={classes.timeline}>
           <Chrono items={timeLines}
-          mode="VERTICAL"
-          hideControls
-          slideItemDuration={4000}
-          cardHeight={150}
-          scrollable={{ scrollbar: true }} />
+            mode="VERTICAL"
+            hideControls
+            slideItemDuration={4000}
+            cardHeight={150}
+            scrollable={{ scrollbar: true }} 
+          />
         </div>
         <div className={classes.blank}></div>
         <TextField 
