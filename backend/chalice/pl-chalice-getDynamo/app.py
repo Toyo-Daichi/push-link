@@ -5,7 +5,7 @@ Created from 2021.12.31
 """
 
 from chalice import Chalice
-from datetime import datetime, timedelta, timezone
+from decimal import Decimal 
 import json
 import logging
 from logging import getLogger, StreamHandler, Formatter
@@ -29,24 +29,17 @@ stream_handler.setFormatter(handler_format)
 logger.addHandler(stream_handler)
 
 """Main"""
-@app.route('/resource/add', methods=['POST'], content_types=['application/json'])
-def main():
-  # webapi info.
-  id = seaquence_table.update_seq({'name':'id'})
-  now = datetime.now(timezone(timedelta(hours=+9),'Asia/Tokyo')) 
-  date = {'date': now.strftime('%Y-%m-%dT%H:%M:%S%z')}
-  state = {'state':'v0'}
-  #
-  info = app.current_request.json_body
-  #
-  comments = {'comments': info['comments']}
-  site = {'site': info['site']}
-  labels = {'labels': info['labels']}
-
+@app.route('/history/{num}', methods=['GET'], content_types=['application/json'], cors=True)
+def main(num):
   try:
-    site_table.put_item(id, date, state, comments, site, labels)
-    _send_mail(id['id'])
-    
+    return_list = []
+    response = seaquence_table.get_item({"name": "id"})
+    max_num = int(response['Item']['seq'])
+    min_num = max_num - int(num)
+    for _index in range(min_num, max_num):
+      _info = _get_site(_index)
+      return_list.append(_info)
+
     return {
       'statusCode': 200,
       'headers': {
@@ -54,36 +47,26 @@ def main():
         'Access-Control-Allow-Methods': 'POST',
         'Access-Control-Allow-Headers': 'Content-Type',
       },
-      'body': json.dumps('Good job :) '),
+      'body': return_list,
     }
 
   except Exception as e:
-    logger.error('Error adding Dynamo message: {}, {}'.format(e,info))
+    logger.error('Error getting Dynamo message: {}, {}'.format(e))
     return {
       'statusCode': 500,
       'headers': {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Methods': 'GET',
         'Access-Control-Allow-Headers': 'Content-Type',
       },
       'body': json.dumps('Sorry ... :( ')
     }
 
 """SubTools"""
-def _send_mail(id):
-  # Mail Contents
-  mail_to, mail_from = os.environ['MAIL_TO'], os.environ['MAIL_FROM']
-  mail_subject = '登録報告完了'
-  mail_method = ses_api(mail_from)
-
-  #s3 read
-  s3_mail_announce = s3_api('pl-s3-mail', 'mail-body.txt')
-  #
-  _message = s3_mail_announce.s3_obj_read()
-  mail_message = _message.replace('<id>', str(id))
-
+def _get_site(index):
   try:
-    response_email = mail_method.send_email(mail_to,mail_subject,mail_message)
-    logger.debug('Sending message.')
+    response =  site_table.get_item({"id": index, "state": "v0"})
+    return response['Item']
+  
   except Exception as e:
-    logger.error('Error sending message: {}'.format(e))
+    logger.error('Error reading DynamoDB Table: {}'.format(e))

@@ -11,10 +11,10 @@ export AWS_ACCOUNT_ID=`aws sts get-caller-identity | jq '.Account' | sed 's/"//g
 #----------------------------------------------------------------------
 sysname='pl'
 type='chalice'
-use='addDynamo'
+use='getDynamo'
 app_name=${sysname}-${type}-${use}
 config=${chome}/${app_name}/.chalice/config.json
-stage='prod'
+stage='dev'
 status='update' # 'create' or 'update'
 
 cat << EOF > ${config}
@@ -28,9 +28,7 @@ cat << EOF > ${config}
       "lambda_timeout": 15,
       "environment_variables": {
         "SITE_TABLE": "${SITE_TABLE}",
-        "SEAQUENCE_TABLE": "${SEAQUENCE_TABLE}",
-        "MAIL_TO": "${MAIL_TO}",
-        "MAIL_FROM": "${MAIL_FROM}"
+        "SEAQUENCE_TABLE": "${SEAQUENCE_TABLE}"
       }
     }
   }
