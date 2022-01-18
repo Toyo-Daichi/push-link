@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useStateMachine } from 'little-state-machine'
 import { Chrono} from 'react-chrono'
 import { Button, Grid, TextField } from '@material-ui/core'
@@ -11,7 +10,7 @@ import classes from './App.module.scss'
 const InputText = (props) => {
   const { state: { initialCache }, actions } = useStateMachine({ updateContent })
   const [comments, setComments] = useState(initialCache.comments)
-  const [timeLines, setTimeLine] = useState([])
+  const [timeLines] = useState(initialCache.timeLines)
   //
   const handleSubmit = (action) => {
     if (action === 'back'){
@@ -21,24 +20,13 @@ const InputText = (props) => {
       props.handleNext()
     }
   }
-
-  useEffect(() => {
-    const func = async()=> {
-      const getNum = 5
-      const apiPath = `https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
-      const { data } = await axios.get(apiPath)
-      const results = data.body
-      setTimeLine([...timeLines, results])
-    }
-    func()
-  }, [])
-  
+ 
   return (
     <>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
         <p>3. どんな問題に対して参考になったかどうかを入力して下さい。過去の5投稿を参考に掲載します！</p>
         <div className={classes.timeline}>
-          <Chrono items={timeLines[0]}
+          <Chrono items={timeLines}
             mode="VERTICAL"
             hideControls
             slideItemDuration={4000}
