@@ -37,6 +37,17 @@ def main(num):
     min_num = max_num - int(num)
     for _index in range(min_num, max_num):
       _info = _get_site(_index)
+      # remove not returned info
+      _info.pop('id')
+      _info.pop('state')
+      _info.pop('kind')
+      # transfer key name
+      _info = _change_key_dict(_info, 'date', 'title')
+      _info = _change_key_dict(_info, 'site', 'cardTitle')
+      _info['labels'] =  ', '.join(_info['labels'])
+      _info = _change_key_dict(_info, 'labels', 'cardSubtitle')
+      _info = _change_key_dict(_info, 'comments', 'cardDetailedText')
+      #
       return_list.append(_info)
 
     return {
@@ -69,3 +80,7 @@ def _get_site(index):
   
   except Exception as e:
     logger.error('Error reading DynamoDB Table: {}'.format(e))
+
+def _change_key_dict(dict, old_key, new_key, default_value=None):
+  dict[new_key] = dict.pop(old_key, default_value)
+  return dict

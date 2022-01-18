@@ -32,13 +32,13 @@ const InputText = (props) => {
     }
     func()
   }, [])
-
+  
   return (
     <>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
         <p>3. どんな問題に対して参考になったかどうかを入力して下さい。過去の5投稿を参考に掲載します！</p>
         <div className={classes.timeline}>
-          <Chrono items={timeLines}
+          <Chrono items={timeLines[0]}
             mode="VERTICAL"
             hideControls
             slideItemDuration={4000}
