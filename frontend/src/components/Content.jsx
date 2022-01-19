@@ -36,21 +36,28 @@ const Content = () => {
       case 3:
         return <End handleReset={handleReset} />
       default:
-        return alert('Unknwon stepIndex')
+        return console.log('Unknwon stepIndex')
     }
   }
 
   useEffect(() => {
-    const func = async()=> {
-      const getNum = 5
-      const apiPath = `https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
-      const { data } = await axios.get(apiPath)
-      const results = data.body
-      setTimeLine([...results])
+    const wait = () =>{
+      const func = async()=> {
+        console.log('func start')
+        const getNum = 5
+        const apiPath = `https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
+        console.log('api start')
+        const { data } = await axios.get(apiPath)
+        console.log('api end')
+        const results = data.body
+        console.log(results)
+        setTimeLine([...results])
+      }
+      func()
     }
-    func()
-    alert(JSON.stringify(timeLines))
-    actions.updateContent({timeLines:[timeLines[0]]})
+    wait()
+    actions.updateContent({timeLines})
+    console.log(JSON.stringify(timeLines))
   }, [])
 
   return (
