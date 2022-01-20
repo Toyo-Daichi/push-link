@@ -10,7 +10,7 @@ import classes from './App.module.scss'
 const InputText = (props) => {
   const { state: { initialCache }, actions } = useStateMachine({ updateContent })
   const [comments, setComments] = useState(initialCache.comments)
-  // const [timeLines] = useState(initialCache.timeLines)
+  const [timeLines] = useState(initialCache.timeLines)
   //
   const handleSubmit = (action) => {
     if (action === 'back'){
@@ -20,48 +20,7 @@ const InputText = (props) => {
       props.handleNext()
     }
   }
-
-  //timelines
-  const timeLines = [
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "2022.1.10",
-      cardTitle: "https://localhost:3000",
-      cardSubtitle: "AWS, Python",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-  ]
-
-
+ 
   return (
     <>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
@@ -72,7 +31,7 @@ const InputText = (props) => {
             hideControls
             slideItemDuration={4000}
             cardHeight={150}
-            scrollable={{ scrollbar: true }} 
+            scrollable={{ scrollbar: true }}
           />
         </div>
         <div className={classes.blank}></div>

@@ -14,7 +14,7 @@ type='chalice'
 use='getDynamo'
 app_name=${sysname}-${type}-${use}
 config=${chome}/${app_name}/.chalice/config.json
-stage='dev'
+stage='prod'
 status='update' # 'create' or 'update'
 
 cat << EOF > ${config}

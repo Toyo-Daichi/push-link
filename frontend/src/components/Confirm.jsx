@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useStateMachine } from 'little-state-machine'
-import { Chrono} from 'react-chrono'
 import { Button, Grid } from '@material-ui/core'
 //
 import { updateContent } from '../cache'
@@ -14,19 +13,6 @@ const Confirm = (props) => {
   const [ kind ] = useState(initialCache.kind)
   const [ labels ] = useState(initialCache.labels)
   const [ comments ] = useState(initialCache.comments)
-  //
-  const timelines = [
-    {
-      title: "AWS Python",
-      cardTitle: "https://localhost:3000",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    },
-    {
-      title: "AWS Python",
-      cardTitle: "https://localhost:3000",
-      cardDetailedText: "Men of the British Expeditionary Force (BEF) wade out to..",
-    }
-  ]
   //
   const dataSubmit = async() => {
     const apiPath = 'https://niw1ev59c2.execute-api.ap-northeast-1.amazonaws.com/api/resource/add'
@@ -54,8 +40,8 @@ const Confirm = (props) => {
   return (
     <>
       <form onSubmit={(event)=>handleSubmit(event)} action='?'>
-        <p>下記の内容でお待ちがいないですか？</p>
-        <p>同カテゴリでは下記の内容が既に登録されています。<br />⇒似たような記事がある場合は、過去投稿にまとめて情報を整理しましょう！</p>
+        <p>下記の内容でお間違いないですか？</p>
+        <p>⇒似たような記事がある場合は、過去投稿にまとめて情報を整理しましょう！</p>
         <p>カテゴリ/サイト名：
           <ul>
             <li>{kind}</li><li>{site}</li>
@@ -71,15 +57,6 @@ const Confirm = (props) => {
         <p>コメント：</p>
         <div className={classes.comments}>
           {comments}
-        </div>
-        <div className={classes.blank}></div>
-        <div className={classes.timelineCategory}>
-        <Chrono items={timelines}
-          mode="VERTICAL"
-          hideControls
-          slideItemDuration={4000}
-          cardHeight={150}
-          scrollable={{ scrollbar: true }} />
         </div>
         <div className={classes.blank}></div>
         <Grid container spacing={2}>
