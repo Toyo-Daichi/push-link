@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 import { useStateMachine } from 'little-state-machine'
 import { Box, Button, Chip, FormControl, Grid} from '@material-ui/core'
 import { InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
@@ -14,6 +15,8 @@ const InputSite = (props) => {
   const [site, setSite] = useState(initialCache.site)
   const [kind, setKind] = useState(initialCache.kind)
   const [labels, setLabels] = useState(initialCache.labels)
+  const [timeLines, setTimeLine] = useState(initialCache.timeLines)
+  
   //
   const labelList = [
     'AWS', 'Azure', 'Linux', 'Git', 'Docker', 'Python', 'Javascript', 'TypeScript', 'React', 'Other', 'Column'
@@ -37,6 +40,18 @@ const InputSite = (props) => {
     actions.updateContent({labels})
   }
   //
+  // timeLines
+  useEffect(() => {
+    const func = async()=> {
+      const getNum = 5
+      const apiPath = `https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
+      const { data } = await axios.get(apiPath)
+      const results = data.body
+      setTimeLine([...results])
+      actions.updateContent({timeLines})
+    }
+    func()
+  }, [kind])
   const handleSubmit = async() => {
     actions.updateContent({site,kind})
     props.handleNext()

@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useStateMachine } from 'little-state-machine'
 import { Grid, Step, StepLabel, Stepper } from '@material-ui/core'
 import { updateContent } from '../cache'
@@ -10,9 +9,7 @@ import Confirm from './Confirm'
 import End from './End'
 
 const Content = () => {
-  const { state: { initialCache }, actions } = useStateMachine({ updateContent })
   const [activeStep, setActiveStep] = useState(0)
-  const [timeLines, setTimeLine] = useState(initialCache.timeLines)
   const getSteps = ['サイト/カテゴリ入力フォーム', 'コメント入力フォーム', '確認フォーム']
   //
   const handleNext = () => {
@@ -39,20 +36,6 @@ const Content = () => {
         return console.log('Unknwon stepIndex')
     }
   }
-
-  useEffect(() => {
-    const func = async()=> {
-      const getNum = 5
-      const apiPath = `https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
-      const { data } = await axios.get(apiPath)
-      const results = data.body
-      setTimeLine([...results])
-      await actions.updateContent({timeLines})
-      //
-      console.log(JSON.stringify(timeLines))
-    }
-    func()
-  }, [])
 
   return (
     <>

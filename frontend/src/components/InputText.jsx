@@ -31,7 +31,7 @@ const InputText = (props) => {
             hideControls
             slideItemDuration={4000}
             cardHeight={150}
-            scrollable={{ scrollbar: true }} 
+            scrollable={{ scrollbar: true }}
           />
         </div>
         <div className={classes.blank}></div>
