@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useStateMachine } from 'little-state-machine'
 import { Box, Button, Chip, FormControl, Grid} from '@material-ui/core'
 import { InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
@@ -15,7 +15,8 @@ const InputSite = (props) => {
   const [site, setSite] = useState(initialCache.site)
   const [kind, setKind] = useState(initialCache.kind)
   const [labels, setLabels] = useState(initialCache.labels)
-  const [timeLines, setTimeLines] = useState(initialCache.timeLines)
+  const [timeLines, setTimeLine] = useState(initialCache.timeLines)
+  
   //
   const labelList = [
     'AWS', 'Azure', 'Linux', 'Git', 'Docker', 'Python', 'Javascript', 'TypeScript', 'React', 'Other', 'Column'
@@ -39,23 +40,21 @@ const InputSite = (props) => {
     actions.updateContent({labels})
   }
   //
-  const handleSubmit = async(event) => {
-    event.preventDefault()
-    const getNum = 5
-    const apiPath = `https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
-    const { data } = await axios.get(apiPath)
-    const results = data.body
-    for (let i = 0; i < results.length; i++){
-     const iobj = {
-        title: results[i].date,
-        cardTitle: results[i].site,
-        cardSubtitle: results[i].labels,
-        cartDetailedTitle: results[i].comments
-      }
-      setTimeLines([...timeLines, iobj])
-      console.log(iobj)
+  // timeLines
+  useEffect(() => {
+    const func = async()=> {
+      const getNum = 5
+      const apiPath = `https://z8juj4btue.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
+      const { data } = await axios.get(apiPath)
+      const results = data.body
+      setTimeLine([...results])
+      console.log(results)
+      actions.updateContent({timeLines})
     }
-    actions.updateContent({site,kind,timeLines})
+    func()
+  }, [kind])
+  const handleSubmit = async() => {
+    actions.updateContent({site,kind})
     props.handleNext()
   }
   return (

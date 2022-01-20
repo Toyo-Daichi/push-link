@@ -31,7 +31,7 @@ const Content = () => {
       case 3:
         return <End handleReset={handleReset} />
       default:
-        return 'Unknwon stepIndex'
+        return console.log('Unknwon stepIndex')
     }
   }
 

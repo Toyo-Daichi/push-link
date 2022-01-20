@@ -1,7 +1,7 @@
 #!/bin/bash
 
-num=2
-site="https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${num}"
+num=5
+site="https://2452cfxjbc.execute-api.ap-northeast-1.amazonaws.com/api/history/${num}"
 curl ${site}
 
 echo 'Normal END'
