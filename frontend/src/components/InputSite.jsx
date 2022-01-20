@@ -44,10 +44,11 @@ const InputSite = (props) => {
   useEffect(() => {
     const func = async()=> {
       const getNum = 5
-      const apiPath = `https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
+      const apiPath = `https://2452cfxjbc.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
       const { data } = await axios.get(apiPath)
       const results = data.body
       setTimeLine([...results])
+      console.log(results)
       actions.updateContent({timeLines})
     }
     func()

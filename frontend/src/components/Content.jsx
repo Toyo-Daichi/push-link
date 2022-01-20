@@ -1,7 +1,5 @@
 import { useState } from 'react'
-import { useStateMachine } from 'little-state-machine'
 import { Grid, Step, StepLabel, Stepper } from '@material-ui/core'
-import { updateContent } from '../cache'
 // conponent
 import InputSite from './InputSite'
 import InputText from './InputText'

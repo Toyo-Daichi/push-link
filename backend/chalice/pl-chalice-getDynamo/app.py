@@ -37,13 +37,14 @@ def main(num):
     min_num = max_num - int(num)
     for _index in range(min_num, max_num):
       _info = _get_site(_index)
+      _info['date'] = _info['date'][:10]
       # remove not returned info
       _info.pop('id')
       _info.pop('state')
-      _info.pop('kind')
       # transfer key name
       _info = _change_key_dict(_info, 'date', 'title')
-      _info = _change_key_dict(_info, 'site', 'cardTitle')
+      _info = _change_key_dict(_info, 'kind', 'cardTitle')
+      _info = _change_key_dict(_info, 'site', 'url')
       _info['labels'] =  ', '.join(_info['labels'])
       _info = _change_key_dict(_info, 'labels', 'cardSubtitle')
       _info = _change_key_dict(_info, 'comments', 'cardDetailedText')
