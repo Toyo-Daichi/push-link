@@ -44,15 +44,11 @@ const Content = () => {
     const func = async()=> {
       const getNum = 5
       const apiPath = `https://ftcg0rr8h3.execute-api.ap-northeast-1.amazonaws.com/api/history/${getNum}`
-      console.log('first step')
       const { data } = await axios.get(apiPath)
-      console.log('seconds step')
       const results = data.body
-      console.log('third step')
-      console.log(results)
       setTimeLine([...results])
-      console.log('forth step')
-      actions.updateContent({timeLines})
+      await actions.updateContent({timeLines})
+      //
       console.log(JSON.stringify(timeLines))
     }
     func()
