@@ -1,4 +1,5 @@
 import { Grid } from '@material-ui/core'
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 //
 import Content from './Content'
 //
@@ -25,8 +26,9 @@ const App = () => {
       <div className={classes.footer}>
         ©2022
       </div>
+      <AmplifySignOut />
     </div>
   );
 }
 
-export default App
+export default withAuthenticator(App)
