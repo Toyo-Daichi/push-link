@@ -32,6 +32,11 @@ resource "aws_cognito_user_pool_client" "app_client" {
   user_pool_id = aws_cognito_user_pool.user_pool.id
 }
 
+resource "aws_cognito_user_pool_client" "web_client" {
+  name = "${var.web_pool_name}-${var.env}"
+  user_pool_id = aws_cognito_user_pool.user_pool.id
+}
+
 resource "aws_cognito_identity_pool" "id_pool" {
   identity_pool_name = "${var.id_pool_name}-${var.env}"
   allow_unauthenticated_identities = false

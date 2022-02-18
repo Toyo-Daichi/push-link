@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react' 
+import { AmplifyAuthenticator, AmplifySignIn, AmplifySignOut, AmplifySignUp } from '@aws-amplify/ui-react'
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components' 
 import { Grid } from '@material-ui/core'
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 //
 import Content from './Content'
 //
@@ -7,8 +9,18 @@ import classes from './App.module.scss'
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 const App = () => {
+  const [ authState, setAuthState ] = useState()
+  const [ user, setUser ] = useState()
 
-  return (
+  useEffect(()=>{
+      return onAuthUIStateChange((nextAuthState, authData)=>{
+        setAuthState(nextAuthState)
+        setUser(authData)
+      })
+    },
+  [])
+
+  return authState === AuthState.SignedIn && user ? (
     <div className='App'>
       <div className={classes.header}>
         <Grid container spacing={1}>
@@ -28,7 +40,21 @@ const App = () => {
       </div>
       <AmplifySignOut />
     </div>
-  );
+  ) : (
+    <AmplifyAuthenticator>
+      <AmplifySignIn 
+        headerText='技術伝授APP' slot='sign-in' 
+      />
+      <AmplifySignUp 
+        slot = 'sign-up'
+        formFields = {[
+          { type: 'username' },
+          { type: 'password' },
+          { type: 'email' }
+        ]}
+      />
+    </AmplifyAuthenticator>
+  )
 }
 
-export default withAuthenticator(App)
+export default App

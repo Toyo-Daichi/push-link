@@ -28,6 +28,12 @@ variable app_pool_name {
   description = "AWS Cognito Application Client Pool"
   default = "default"
 }
+
+variable web_pool_name {
+  type = string
+  description = "AWS Cognito Web Client Pool"
+  default = "default"
+}
 variable id_pool_name {
   type = string
   description = "AWS Cognito Identity Pool"
