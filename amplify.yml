@@ -2,15 +2,18 @@ version: 1
 frontend:
   phases:
     prebuild:
-      commands: [
-        'npm update -g npm'
-      ]
+      commands:
+        - npm update -g npm
     build:
-      commands: [
-        'cd frontend',
-        'npm install',
-        'npm run build'
-      ]
+      commands: 
+        - cd frontend
+        - npm install
+        - npm run build
+        - echo $REACT_APP_PROJECT_REGION >> .env
+        - echo $REACTREACT_APP_COGNITO_IDENTITY_POOL_ID_APP_PROJECT_REGION >> .env
+        - echo $REACT_APP_COGNITO_REGION >> .env
+        - echo $REACT_APP_USER_POOL_ID >> .env
+        - echo $REACT_APP_USER_POOL_WEB_CLIENT_ID >> .env
   artifacts:
     baseDirectory: frontend/build
     files:
