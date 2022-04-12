@@ -22,27 +22,29 @@ const App = () => {
 
   return (
     <div className='App'>
-      <div className={classes.header}>
-        <Grid container spacing={1}>
-          <Grid item xs={1.5}>
-            <BorderColorIcon sx={{fontSize:30}}/>
-          </Grid>
-          <Grid item xs={10.5}>
-            <h2>技術伝授App</h2>
-          </Grid>
-        </Grid>
-      </div>
-      <Authenticator formFields={formFields}>
-        {({signOut, user}) => (
-          <div className={classes.container}>
-            <Content />
-            <button onClick={signOut}>Sign out</button>
+      <Authenticator loginMechanisms={['username', 'email']} formFields={formFields} variation='modal'>
+        {({signOut}) => (
+          <>
+          <div className={classes.header}>
+            <Grid container spacing={1}>
+              <Grid item xs={1.5}>
+                <BorderColorIcon sx={{fontSize:30}}/>
+              </Grid>
+              <Grid item xs={10.5}>
+                <h2>技術伝授App</h2>
+              </Grid>
+            </Grid>
           </div>
+              <div className={classes.container}>
+                <Content />
+                <button onClick={signOut}>Sign out</button>
+              </div>
+          <div className={classes.footer}>
+            ©2022
+          </div>
+          </>
         )}
       </Authenticator>
-      <div className={classes.footer}>
-        ©2022
-      </div>
     </div>
   )
 }
